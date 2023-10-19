@@ -23,16 +23,22 @@ CREATE TABLE spots(
     PRIMARY KEY(id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE spot_grades(
+-- CREATE TABLE spot_grades(
+--     id INT NOT NULL AUTO_INCREMENT,
+--     showers BOOLEAN NOT NULL,
+--     trash_cans BOOLEAN NOT NULL,
+--     parking_spots BOOLEAN NOT NULL,
+--     parking_spots_availibility BOOLEAN NOT NULL,
+--     catering_area BOOLEAN NOT NULL,
+--     spot_id INT NOT NULL,
+--     PRIMARY KEY(id),
+--     CONSTRAINT fk_spot_grades_spots FOREIGN KEY(spot_id) REFERENCES spots(id)
+-- ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE utilities(
     id INT NOT NULL AUTO_INCREMENT,
-    showers BOOLEAN NOT NULL,
-    trash_cans BOOLEAN NOT NULL,
-    parking_spots BOOLEAN NOT NULL,
-    parking_spots_availibility BOOLEAN NOT NULL,
-    catering_area BOOLEAN NOT NULL,
-    spot_id INT NOT NULL,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_spot_grades_spots FOREIGN KEY(spot_id) REFERENCES spots(id)
+    title VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE users_register_spots(
