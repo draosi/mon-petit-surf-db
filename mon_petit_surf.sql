@@ -114,4 +114,4 @@ INSERT INTO utilities (title) VALUES
 ("Poubelle"),
 ("Place de parking"),
 ("Restauration"),
-("Réseaux téléphone")
+("Réseaux")
