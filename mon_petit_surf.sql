@@ -7,39 +7,23 @@ CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    street VARCHAR(255),
-    zip_code INT,
-    city VARCHAR(255),
-    status VARCHAR(255) NOT NULL DEFAULT 'user',
     PRIMARY KEY(id)
-) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 CREATE TABLE spots(
     id INT NOT NULL AUTO_INCREMENT,
     spot_name VARCHAR(255) NOT NULL,
-    latitude DECIMAL(4,2) NOT NULL,
-    longitude DECIMAL(5,2) NOT NULL,
+    latitude DECIMAL(4, 2) NOT NULL,
+    longitude DECIMAL(5, 2) NOT NULL,
     department VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- CREATE TABLE spot_grades(
---     id INT NOT NULL AUTO_INCREMENT,
---     showers BOOLEAN NOT NULL,
---     trash_cans BOOLEAN NOT NULL,
---     parking_spots BOOLEAN NOT NULL,
---     parking_spots_availibility BOOLEAN NOT NULL,
---     catering_area BOOLEAN NOT NULL,
---     spot_id INT NOT NULL,
---     PRIMARY KEY(id),
---     CONSTRAINT fk_spot_grades_spots FOREIGN KEY(spot_id) REFERENCES spots(id)
--- ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 CREATE TABLE utilities(
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 CREATE TABLE users_register_spots(
     user_id INT NOT NULL,
@@ -50,11 +34,19 @@ CREATE TABLE users_register_spots(
     PRIMARY KEY(user_id, spot_id),
     CONSTRAINT fk_users_register_spots_user FOREIGN KEY(user_id) REFERENCES users(id),
     CONSTRAINT fk_users_register_spots_spot FOREIGN KEY(spot_id) REFERENCES spots(id)
-) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
+CREATE TABLE spots_get_utilities(
+    spot_id INT NOT NULL,
+    utility_id INT NOT NULL,
+    PRIMARY KEY(spot_id, utility_id),
+    CONSTRAINT fk_spots_get_utilities_spot FOREIGN KEY(spot_id) REFERENCES spots(id),
+    CONSTRAINT fk_spots_get_utilities_utility FOREIGN KEY(utility_id) REFERENCES utilities(id)
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 -- SPOTS
-INSERT INTO spots (spot_name, latitude, longitude, department) VALUES
+INSERT INTO spots (spot_name, latitude, longitude, department)
+VALUES
 ("Lacanau-Océan", 45.00, -1.19, "Gironde"),
 ("Saint-Jean-de-Luz", 43.39, -1.66, "Pyrénées-Atlantique"),
 ("Hendaye", 43.36, -1.77, "Pyrénées-Atlantique"),
@@ -93,7 +85,7 @@ INSERT INTO spots (spot_name, latitude, longitude, department) VALUES
 ("Bretignolles-sur-Mer", 46.63, -1.86, "Vendée"),
 ("Saint-Gilles-Croix-de-Vie", 46.7, -1.95, "Vendée"),
 ("Saint-Jean-de-Monts", 46.79, -2.06, "Vendée"),
-("La Baule-Escoublac", 47.29, -2.36, "Loire-Atlantique"),
+( "La Baule-Escoublac", 47.29, -2.36, "Loire-Atlantique"),
 ("Quiberon", 47.48, -3.12, "Morbihan"),
 ("Etel", 47.66, -3.2, "Morbihan"),
 ("Toulhars", 47.71, -3.38, "Morbihan"),
@@ -113,5 +105,13 @@ INSERT INTO spots (spot_name, latitude, longitude, department) VALUES
 ("Lampaul-Plouarzel", 48.45, -4.76, "Finistère"),
 ("Kerlouan", 48.65, -4.37, "Finistère"),
 ("Dossen", 48.7, -4.05, "Finistère"),
-("Locquirec", 48.69, -3.65, "Finistère"),
 ("Trestraou", 48.82, -3.47, "Côtes-d'Armor");
+
+-- UTILITIES
+INSERT INTO utilities (title) VALUES
+("Douche"),
+("Toilette"),
+("Poubelle"),
+("Place de parking"),
+("Restauration"),
+("Réseaux téléphone")
